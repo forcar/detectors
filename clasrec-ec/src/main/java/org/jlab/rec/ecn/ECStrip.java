@@ -69,7 +69,7 @@ public class ECStrip implements Comparable {
     }
     
     public double getEnergy(Point3D point){
-        double dist = point.distance(this.stripLine.origin());
+        double dist = point.distance(this.stripLine.end());
         double ecorr  =  this.iAttenLengthA*Math.exp(-dist/this.iAttenLengthB) + this.iAttenLengthC;
         double energy = this.iADC*this.iGain*this.iADC_to_MEV/ecorr;
         return energy;
