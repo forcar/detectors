@@ -39,6 +39,10 @@ public class ECCluster {
         this.intersection();
     }
     
+    public ECPeak  getPeak(int index){
+        return this.clusterPeaks.get(index);
+    }
+    
     public int getMultiplicity(){
         return this.clusterMultiplicity;
     }

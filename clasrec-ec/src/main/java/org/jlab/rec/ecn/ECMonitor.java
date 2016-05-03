@@ -28,8 +28,10 @@ import org.jlab.clasrec.main.DetectorEventProcessorPane;
 import org.jlab.clasrec.utils.CLASGeometryLoader;
 import org.jlab.data.io.DataEvent;
 import org.jlab.evio.clas12.EvioDataEvent;
+import org.root.basic.EmbeddedCanvas;
+
 import org.root.histogram.H1D;
-import org.root.pad.EmbeddedCanvas;
+
 
 /**
  *
