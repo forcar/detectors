@@ -7,6 +7,7 @@ package org.jlab.clas.eb;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jlab.clas12.physics.DetectorEvent;
 import org.jlab.clas12.physics.DetectorParticle;
 import org.jlab.data.io.DataEvent;
 import org.jlab.evio.clas12.EvioDataBank;
@@ -23,13 +24,12 @@ public class EventBuilder {
      * and make a List of DetectorParticle classes. DetectorParticle contains
      * the momentum of the particle, the cross, direction.
      * @param event
-     * @return 
+     * @return list of detector particles
      */
     public static List<DetectorParticle>  getTracks(DataEvent event){
         List<DetectorParticle>   trackPaths = new ArrayList<DetectorParticle>();
         if(event.hasBank("TimeBasedTrkg::TBTracks")==true){
-            
-            
+                        
             EvioDataBank bank = (EvioDataBank) event.getBank("TimeBasedTrkg::TBTracks");
             int nrows = bank.rows();
             
@@ -69,4 +69,12 @@ public class EventBuilder {
         return trackPaths;
     }
     
+    public static DetectorEvent  getDetectorEvent(DataEvent event){
+        List<DetectorParticle>  particles = EventBuilder.getTracks(event);
+        DetectorEvent detEvent = new DetectorEvent();
+        for(DetectorParticle p : particles){
+            detEvent.addParticle(p);
+        }
+        return detEvent;
+    }
 }
