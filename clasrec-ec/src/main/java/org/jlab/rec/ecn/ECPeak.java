@@ -89,6 +89,16 @@ public class ECPeak {
         return this.peakStrips.size();
     }
     
+    public int getCoord(){
+        double energy_summ = 0.0;
+        double energy_norm = 0.0;
+        for(ECStrip strip : this.peakStrips){
+            energy_summ += strip.getEnergy();
+            energy_norm += strip.getEnergy()*strip.getDescriptor().getComponent();
+        }        
+        return (int) (8*(energy_norm/energy_summ));
+    }
+    
     @Override
     public String toString(){
         StringBuilder str = new StringBuilder();

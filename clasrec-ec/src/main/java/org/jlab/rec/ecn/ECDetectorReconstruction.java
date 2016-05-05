@@ -130,6 +130,9 @@ public class ECDetectorReconstruction extends DetectorReconstruction {
                 bankC.setDouble("widthU", c, clusters.get(c).getPeak(0).getMultiplicity());
                 bankC.setDouble("widthV", c, clusters.get(c).getPeak(1).getMultiplicity());
                 bankC.setDouble("widthW", c, clusters.get(c).getPeak(2).getMultiplicity());
+                bankC.setInt("coordU", c, clusters.get(c).getPeak(0).getCoord());
+                bankC.setInt("coordV", c, clusters.get(c).getPeak(1).getCoord());
+                bankC.setInt("coordW", c, clusters.get(c).getPeak(2).getCoord());
             }
             de.appendBanks(bankS,bankP,bankC);
         }
