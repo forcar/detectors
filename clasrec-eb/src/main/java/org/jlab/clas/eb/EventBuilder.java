@@ -18,7 +18,12 @@ import org.jlab.geom.prim.Path3D;
  * @author gavalian
  */
 public class EventBuilder {
+    public static String  timeBasedTracksBank = "TimeBasedTrkg::TBTracks";
+    public static String  hitBasedTracksBank  = "HitBasedTrkg::HBTracks";
     
+    public static List<DetectorParticle>  getTracks(DataEvent event){
+        return EventBuilder.getTracks(event, Boolean.TRUE);
+    }
     /**
      * Read the event and if the Tracking bank is present, make a list of tracks 
      * and make a List of DetectorParticle classes. DetectorParticle contains
@@ -26,11 +31,16 @@ public class EventBuilder {
      * @param event
      * @return list of detector particles
      */
-    public static List<DetectorParticle>  getTracks(DataEvent event){
+    public static List<DetectorParticle>  getTracks(DataEvent event, Boolean timeBased){
+        String tracksBank = EventBuilder.timeBasedTracksBank;
+        if(timeBased==false){
+            tracksBank = EventBuilder.hitBasedTracksBank;
+        }
+        
         List<DetectorParticle>   trackPaths = new ArrayList<DetectorParticle>();
-        if(event.hasBank("TimeBasedTrkg::TBTracks")==true){
+        if(event.hasBank(tracksBank)==true){
                         
-            EvioDataBank bank = (EvioDataBank) event.getBank("TimeBasedTrkg::TBTracks");
+            EvioDataBank bank = (EvioDataBank) event.getBank(tracksBank);
             int nrows = bank.rows();
             
             for(int loop = 0; loop < nrows; loop++){
@@ -71,6 +81,15 @@ public class EventBuilder {
     
     public static DetectorEvent  getDetectorEvent(DataEvent event){
         List<DetectorParticle>  particles = EventBuilder.getTracks(event);
+        DetectorEvent detEvent = new DetectorEvent();
+        for(DetectorParticle p : particles){
+            detEvent.addParticle(p);
+        }
+        return detEvent;
+    }
+    
+    public static DetectorEvent  getDetectorEvent(DataEvent event,Boolean timeBasedFlag){
+        List<DetectorParticle>  particles = EventBuilder.getTracks(event,timeBasedFlag);
         DetectorEvent detEvent = new DetectorEvent();
         for(DetectorParticle p : particles){
             detEvent.addParticle(p);
