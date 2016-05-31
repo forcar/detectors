@@ -94,9 +94,11 @@ public class ECPeak {
         double energy_norm = 0.0;
         for(ECStrip strip : this.peakStrips){
             energy_summ += strip.getEnergy();
-            energy_norm += strip.getEnergy()*strip.getDescriptor().getComponent();
+	    int str = strip.getDescriptor().getComponent() - 1;
+	    str = str*8+4;
+            energy_norm += strip.getEnergy()*str;
         }        
-        return (int) (8*(energy_norm/energy_summ));
+        return (int) (energy_norm/energy_summ);
     }
     
     @Override
