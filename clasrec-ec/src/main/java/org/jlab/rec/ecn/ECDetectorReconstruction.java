@@ -80,7 +80,7 @@ public class ECDetectorReconstruction extends DetectorReconstruction {
     @Override
     public void processEvent(EvioDataEvent de) {
         ECStore               ecStore = new ECStore();
-        if(de.hasBank("PCAL::dgtz")==true){
+        if(de.hasBank("PCAL::dgtz")==true || de.hasBank("EC::dgtz")==true){
             ecStore.processGemc(de, this.getGeometry("EC"), this.getConstants("ECCALIB"));
             
             //if(this.debugLevel()>0)
